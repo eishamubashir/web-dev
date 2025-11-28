@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2a1a3d 0%, #1a0d2e 100%);
+            color: white;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: black;
+            padding: 3px 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 4px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-left a:hover,
+        .nav-left a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-logo {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 90px;
+            width: auto;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-logo:hover img {
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: purple;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+
+
+              
+        .nav-right button {
+            background: purple;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .nav-right .admin-btn:hover {
+            background: red;
+        }
+
+        .nav-right .logout-btn:hover {
+            background: #c0392b;
+        }
+        
+        .nav-right .login-btn:hover {
+            background: #c0392b;
+        }
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 40px auto;
+            align-items: start;
+            padding: 0 20px;
+        }
+
+        .left-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .left-text h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .left-text p {
+            font-size: 18px;
+            line-height: 1.7;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .contact-info p {
+            margin: 15px 0;
+            font-size: 17px;
+        }
+
+        .contact-info a {
+            color: #d8bfd8;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            color: white;
+        }
+
+        .right-form {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h3 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.5);
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #6a0dad;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #7d26cd;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(106, 13, 173, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                padding: 0 15px;
+            }
+
+            .left-text h1 {
+                font-size: 38px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--  NAVBAR -->
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="home.html" class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=900&auto=format&fit=crop&q=60"
+                    alt="Logo" style="height: 40px; width: auto;">
+            </a>
+            <a href="home.html">Home</a>
+            <a href="about.html">About us</a>
+            <a href="contact.html" class="active">Contact us</a>
+            <a href="complaint.html">complaint here</a>
+            <a href="Features.html">Features</a>
+
+            
+        </div>
+
+        <div class="nav-right">
+            <button class="admin-btn" onclick="window.location.href='admin.html'">Admin</button>
+            <button class="login-btn" onclick="window.location.href='index.html'">Login</button>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+            
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="left-text">
+            <h1>Contact Us</h1>
+            <p>Not sure what you need? The team here will be happy to listen to you and suggest ideas you hadn't
+                considered.</p>
+            <div class="contact-info">
+                <p>✉️ abc@gmail.com</p>
+                <p>📞 Support: (+21) 123 123 123</p>
+            </div>
+        </div>
+
+        <div class="right-form">
+            <div class="form-header">
+                <h3>We'd love to hear from you!</h3>
+                <p>Send us a message and we'll respond as soon as possible</p>
+            </div>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="abc@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+ 
+    
+   <script>
+    document.getElementById("contactForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const data = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            message: document.getElementById("message").value
+        };
+
+        const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+            alert("Message Saved !");
+            this.reset();
+        } else {
+            alert("Error: " + result.message);
+        }
+    });
+
+    
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+        if (confirm('Are you sure you want to logout?')) {
+            alert('Logged out successfully!');
+            window.location.href = 'index.html';
+        }
+    });
+</script>
+
+</body>
+
+</html>
+            

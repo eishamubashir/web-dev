@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: x-large;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 200x;
+            
+            
+        }
+
+        .container {
+            background: white;
+            padding: 200px;
+             border-radius: 25px;
+            display: inline-block;
+            border-style: groove;
+            margin-top: 40px;
+            width:300px;
+            
+        }
+
+        h1 {
+            color: #008CBA;
+        }
+      
+      
+      .button {
+         background-color: white;
+         
+     }
+      .button1 { background-color: #f44336; } /* Logout - Red */
+.button1:hover { background-color: #d32f2f; }
+.button2 { background-color: #4CAF50; } /* Back - Green */
+.button2:hover { background-color: #45a049; }
+
+       
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome!</h1>
+        <p id="displayName"></p>
+        <p id="displayEmail"></p>
+        <button class="button button1" onclick="logout()">Logout</button>
+       <button class="button button2" onclick="goBack()">Back</button>
+
+    </div> 
+        
+        
+            <script>
+
+                
+                    let users = JSON.parse(localStorage.getItem("users")) || [];
+                    let lastUser = users[users.length - 1];  
+
+                    if (lastUser) {
+                        document.getElementById("userInfo").innerHTML = `
+            <p><strong>Name:</strong> ${lastUser.firstName} ${lastUser.lastName}</p>
+            <p><strong>Email:</strong> ${lastUser.email}</p>
+        `;
+                    } else {
+                        document.getElementById("userInfo").innerHTML =
+                            "<p style='color:red;'>No user found! <br> Pehle form bharo.</p>";
+                    }
+
+                    function logout() {
+                        localStorage.removeItem("users");
+                        alert("All data cleared!");
+                        window.location.href = "loginpage.html";
+                        window.location.href = "login2.html";
+                    }
+
+                         function goBack() {
+                            window.location.href = "loginpage.html";
+                            window.location.href = "login2.html";
+                            history.back();
+
+                    }
+
+                   
+            
+            </script>
+        </body>
+        
+        </html>
+ 
+.management-card img {
+width: 150px;
+height: 150px;
+object-fit: cover;
+margin: 20px auto 40px;
+
+clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+border: 1px solid yellow;
+box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+transition: all 0.4s ease;
+}
+
+.management-card:hover img {
+transform: scale(1);
+clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
+}

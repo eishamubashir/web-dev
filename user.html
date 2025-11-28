@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users - View & Edit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2a1a3d 0%, #1a0d2e 100%);
+            color: white;
+            line-height: 1.6;
+        }
+       
+        .navbar {
+            background: black;
+            padding: 3px 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 4px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-left a:hover,
+        .nav-left a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-right button {
+            background: purple;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .nav-right button:hover {
+            background: #c0392b;
+        }
+
+        .nav-logo {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 5px;
+        }
+
+        .nav-logo:hover img {
+            opacity: 0.8;
+        }
+
+        #mainContent {
+            padding: 20px;
+            min-height: 100vh;
+            
+        }
+
+        .back {
+            display: inline-block;
+           background: purple;
+            box-shadow: 0 20px 40px rgba(255, 0, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            outline: none;
+        }
+
+        .search-container input:focus {
+            border-color: blue;
+        }
+
+
+         .search-container::after {
+             content: 'search';
+             position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+             color: black;
+}
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.08);
+            
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: purple;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+           
+            background: purple;
+            box-shadow: 0 20px 40px rgba(255, 0, 255, 0.3);
+
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+
+        .edit {
+            background: blueviolet;
+            color: white;
+        }
+
+        .delete {
+            background: #bb1503;
+            color: white;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+        }
+
+        #editModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: black;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            margin: 10px 8px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .save {
+            background: #27ae60;
+            color: white;
+        }
+
+        .cancel {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination a {
+            padding: 10px 15px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            min-width: 44px;
+            text-align: center;
+        }
+
+        .pagination a.active {
+            background: #4CAF50;
+        }
+
+        .pagination a:hover {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="nav-left">
+            <a class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bG9nb3N8ZW58MHx8MHx8fDA%3D"
+                    alt="Logo" style="height: 40px; width: auto; vertical-align: middle;">
+            </a>
+            <a href="home.html">Home</a>
+            <a href="about.html">About us</a>
+            <a href="contact.html">Contact us</a>
+            <a href="complaint.html">complaint here</a>
+            <a href="Features.html">Features</a>
+            
+        </div>
+        <div class="nav-right">
+            <button class="admin-btn" onclick="window.location.href='admin.html'">Admin</button>
+            <button class="login-btn" onclick="window.location.href='index.html'">Login</button>
+            <button class="logout-btn">Logout</button>
+
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <a href="admin.html" class="back">Back to Admin</a>
+        <h1>All Users Data</h1>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by name or email..." onkeyup="applySearch()">
+        
+        </div>
+
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userBody">
+                
+            </tbody>
+        </table>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="overlay" onclick="closeEdit()"></div>
+    <div id="editModal">
+        <h2>Edit User</h2>
+        <input type="hidden" id="editId">
+        <label>First Name</label>
+        <input type="text" id="editFname" class="input">
+        <label>Last Name</label>
+        <input type="text" id="editLname" class="input">
+        <label>Email</label>
+        <input type="email" id="editEmail" class="input">
+        <div style="text-align:center; margin-top:20px;">
+            <button onclick="saveEdit()" class="modal-btn save">Save</button>
+            <button onclick="closeEdit()" class="modal-btn cancel">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        
+        const usersPerPage = 4;
+        let currentPage = 1;
+        let allUsers = [];
+        let filteredUsers = [];
+
+        async function loadUsers() {
+            try {
+                const res = await fetch('http://localhost:3000/api/users');
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+
+                console.log("API Response:", data); 
+
+                if (data.success && Array.isArray(data.users)) {
+                    allUsers = data.users.map(user => ({
+                        id: user._id,
+                        firstName: user.firstName?.trim() || "No Name",
+                        lastName: user.lastName?.trim() || "-",
+                        email: user.email || "No Email"
+                    }));
+                    filteredUsers = [...allUsers];
+                    currentPage = 1;
+                    renderTable();
+                    renderPagination();
+                } else {
+                    showMessage("No users found");
+                }
+            } catch (err) {
+                console.error("Error:", err);
+                showMessage("Server not connected!");
+            }
+        }
+
+        function showMessage(msg) {
+            document.getElementById("userBody").innerHTML =
+                `<tr><td colspan="4" style="text-align:center; padding:60px; color:#aaa; font-size:18px;">${msg}</td></tr>`;
+            document.getElementById("pagination").innerHTML = "";
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById("userBody");
+            tbody.innerHTML = "";
+            const start = (currentPage - 1) * usersPerPage;
+            const end = start + usersPerPage;
+            const pageUsers = filteredUsers.slice(start, end);
+
+            if (pageUsers.length === 0) {
+                showMessage("No users match your search.");
+                return;
+            }
+
+            pageUsers.forEach(user => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+            <td><strong>${user.firstName}</strong></td>
+            <td>${user.lastName}</td>
+            <td>${user.email}</td>
+            <td>
+                <button class="btn edit" onclick="openEdit('${user.id}', '${user.firstName}', '${user.lastName}', '${user.email}')">Edit</button>
+                <button class="btn delete" onclick="deleteUser('${user.id}')">Delete</button>
+            </td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = "";
+
+            if (totalPages <= 1) return;
+
+            if (currentPage > 1) {
+                pagination.innerHTML += `<a href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
+            }
+
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.innerHTML += `<a href="#" ${i === currentPage ? 'class="active"' : ''} onclick="changePage(${i})">${i}</a>`;
+            }
+
+            if (currentPage < totalPages) {
+                pagination.innerHTML += `<a href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
+            }
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderTable();
+            renderPagination();
+        }
+
+        function applySearch() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            filteredUsers = allUsers.filter(user =>
+                user.firstName.toLowerCase().includes(query) ||
+                user.lastName.toLowerCase().includes(query) ||
+                user.email.toLowerCase().includes(query)
+            );
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+        }
+
+        // Modal Functions
+        function openEdit(id, fname, lname, email) {
+            document.getElementById("editId").value = id;
+            document.getElementById("editFname").value = fname;
+            document.getElementById("editLname").value = lname;
+            document.getElementById("editEmail").value = email;
+            document.getElementById("editModal").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closeEdit() {
+            document.getElementById("editModal").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        async function saveEdit() {
+            const id = document.getElementById("editId").value;
+            const firstName = document.getElementById("editFname").value.trim();
+            const lastName = document.getElementById("editLname").value.trim();
+            const email = document.getElementById("editEmail").value.trim();
+
+            if (!firstName || !email) {
+                alert("First name/email ara must!");
+                return;
+            }
+
+            try {
+                const res = await fetch(`http://localhost:3000/api/users/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ firstName, lastName, email })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    closeEdit();
+                    loadUsers();
+                } else {
+                    alert("Update failed!");
+                }
+            } catch (err) {
+                alert("Server error!");
+            }
+        }
+
+        async function deleteUser(id) {
+            if (confirm("Are you sure ?")) {
+                try {
+                    const res = await fetch(`http://localhost:3000/api/users/${id}`, { method: 'DELETE' });
+                    const data = await res.json();
+                    if (data.success) loadUsers();
+                } catch (err) {
+                    alert("Delete failed");
+                }
+            }
+        }
+
+        // Start
+        window.onload = loadUsers;
+    </script>
+</body>
+
+</html>

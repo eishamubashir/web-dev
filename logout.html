@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Logout </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2a1a3d 0%, #1a0d2e 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        nav {
+            background: black;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 5%;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    
+    <nav>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </nav>
+
+   
+
+    <script>
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        logoutBtn.addEventListener('click', function () {
+            const confirmLogout = confirm("Are you want to log out?");
+
+            if (confirmLogout) {
+                alert("log out!");
+                location.reload();   // ya phir apna logout page pe redirect
+                // window.location.href = "login.html";
+                
+            }
+        });
+    </script>
+
+</body>
+
+</html>

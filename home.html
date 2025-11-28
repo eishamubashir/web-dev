@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2a1a3d, #1a0d2e);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: black;
+            padding: 3px 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 4px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-left a:hover,
+        .nav-left a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-logo {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 90px;
+            width: auto;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-logo:hover img {
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: purple;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            margin-left: 16px;
+        }
+
+        .login-btn {
+            background: purple;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            margin-left: 13px;
+        }
+
+        .admin-btn {
+            background: purple;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            margin-left: 13px;
+        }
+
+        .admin-btn:hover {
+            background: red;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .login-btn:hover {
+            background: red;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            gap: 40px;
+        }
+
+        .hero-left {
+            width: 50%;
+        }
+
+        .hero-left h1 {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .hero-left p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            background: purple;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #be2edd;
+            transform: translateY(-5px);
+        }
+
+        .hero-video {
+            width: 40%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-video video {
+            width: 100%;
+            border-radius: 50px 10px 35px 0;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .video-section {
+            margin-top: -100px;
+            padding: 100px 5% 80px;
+            display: flex;
+            gap: 40px;
+        }
+
+        .video-grid {
+            width: 55%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+
+        .video-grid video {
+            width: 100%;
+            border-radius: 50px 15px 20px 0;
+            object-fit: cover;
+        }
+
+        .video-text {
+            width: 45%;
+        }
+
+        .video-text h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .video-text p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+
+        .app-section {
+            padding: 100px 20px 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .wrapper {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .android,
+        .ios {
+            width: 310px;
+            max-width: 90%;
+            border-radius: 10px;
+            padding: 20px 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            height: 510px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .android {
+            background: white;
+            color: #333;
+        }
+
+        .ios {
+            background: purple;
+            color: white;
+        }
+
+        .android:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(164, 198, 57, 0.4);
+            background: lightblue;
+        }
+
+        .ios:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(150, 0, 255, 0.6);
+            background: rgba(150, 0, 255, 0.6);
+        }
+
+        .android img,
+        .ios img {
+            width: 105px;
+            margin: 0 auto 20px;
+        }
+
+        .ios img {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .android h3,
+        .ios h3 {
+            font-size: 38px;
+            font-weight: 800;
+            margin: 5px 0 10px;
+        }
+
+        .android h3 {
+            color: #a4c639;
+        }
+
+        .ios h3 {
+            color: #fff;
+        }
+
+        .android p,
+        .ios p {
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        .store {
+            font-size: 21px;
+            margin-bottom: 45px;
+            opacity: 0.9;
+        }
+
+        .android .btn,
+        .ios .btn {
+            margin-top: auto;
+            padding: 18px 38px;
+            border-radius: 5px;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .android .btn {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .android .btn:hover {
+            background: #a4c639;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        .ios .btn {
+            background: white;
+            color: #000;
+        }
+
+        .ios .btn:hover {
+            background: #a4c639;
+            color: purple;
+            transform: scale(1.05);
+        }
+
+
+
+
+
+        .cards-container {
+            padding: 100px 5% 200px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+
+        h1 {
+            font-size: 42px;
+            margin-top: -90px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+        }
+
+
+        .management-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 2px solid lightblue;
+            width: 300px;
+            margin-top: -255px;
+            height: 370px;
+            padding: 30px 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(#2a1a3d, #1a0d2e);
+        }
+
+        .management-card:hover {
+            transform: translateY(-5px);
+            background: blueviolet;
+            box-shadow: 0 20px 40px rgba(255, 0, 255, 0.3);
+
+        }
+
+        .management-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin: 20px auto 40px;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+          border: 1px solid yellow;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+          transition: all 0.4s ease;
+
+           
+         }
+        
+         .management-card:hover img {
+          transform: scale(1);
+         clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
+
+        background: #3940c6;
+        }
+ 
+           .management-card h2 {
+            font-size: 1.2rem;
+            margin-top: 1px;
+            margin-bottom: 1px;
+            color: white;
+        }
+
+        .management-card p {
+            font-size: 1.1rem;
+            margin-top: auto;
+            opacity: 0.9;
+            margin-bottom: 60px;
+            color: rgb(255, 183, 0);
+        }
+
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                height: auto;
+                padding: 40px 5%;
+            }
+
+            .hero-left,
+            .hero-video {
+                width: 100%;
+            }
+
+            .hero-left h1 {
+                font-size: 3rem;
+            }
+
+            .hero-left p {
+                font-size: 1.3rem;
+            }
+
+            .wrapper {
+                gap: 50px;
+            }
+
+            .android,
+            .ios {
+                width: 90%;
+                max-width: 400px;
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="home.html" class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=900&auto=format&fit=crop&q=60"
+                    alt="Logo" style="height: 40px; width: auto;">
+            </a>
+            <a href="home.html" class="active">Home</a>
+            <a href="about.html">About us</a>
+            <a href="contact.html">Contact us</a>
+            <a href="complaint.html">complaint here</a>
+            <a href="Features.html">Features</a>
+
+
+        </div>
+
+
+
+        <div class="nav-right">
+            <button class="admin-btn" onclick="window.location.href='admin.html'">Admin</button>
+            <button class="login-btn" onclick="window.location.href='index.html'">Login</button>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-left">
+            <h1>WEBSITES</h1>
+            <p>Step into the future of web experiences – where speed, design, and innovation collide.</p>
+            <a href="about.html" class="btn">Read more</a>
+        </div>
+        <div class="hero-video">
+            <video autoplay loop muted playsinline>
+                <source src="https://www.pexels.com/download/video/34704446/" type="video/mp4">
+            </video>
+        </div>
+    </section>
+
+    <section class="video-section">
+        <div class="video-grid">
+            <video autoplay loop muted playsinline>
+                <source src="https://www.pexels.com/download/video/5207408/">
+            </video>
+            <video autoplay loop muted playsinline>
+                <source src="https://www.pexels.com/download/video/6774847/">
+            </video>
+            <video autoplay loop muted playsinline>
+                <source src="https://www.pexels.com/download/video/1350205/">
+            </video>
+            <video autoplay loop muted playsinline>
+                <source src="https://www.pexels.com/download/video/4913289/">
+            </video>
+        </div>
+
+        <div class="video-text">
+            <h2>Web Creations</h2>
+            <p>High-quality websites built with modern design, animations, fast performance and professional UI
+                experience. These visuals represent the clean and attractive interface that your website can achieve.
+            </p>
+        </div>
+    </section>
+
+    <section class="app-section">
+        <div class="wrapper">
+            <div class="android">
+                <img src="https://img.icons8.com/?size=160&id=AnSUZ3CWJ6BP&format=png" alt="Android">
+                <h3>Android</h3>
+                <p>Your health, your way. Download our Android app for easy appointment booking, record access, and
+                    more!</p>
+                <div class="store">Get it on Google Play</div>
+                <a href="#" class="btn">Download ➡️</a>
+            </div>
+            <div class="ios">
+                <img src="https://img.icons8.com/?size=128&id=69428&format=png" alt="iOS">
+                <h3>iOS</h3>
+                <p>Stay ahead with our iOS app. Access your health records, book appointments, and get updates on the
+                    go!</p>
+                <div class="store">Download on the App Store</div>
+                <a href="#" class="btn">Download ➡️</a>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="cards-container">
+        <h1>MEET OUR MANAGEMENT </h1>
+    </div>
+
+
+    <div class="cards-container">
+        <div class="management-card">
+            <img src="https://i.pinimg.com/1200x/0d/4e/70/0d4e70c5c2e55be892cd8b0beb8c7e60.jpg">
+            <h2>Dr Amir Halim</h2>
+            <p>MEDICAL DIRECTOR</p>
+
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <div class="management-card">
+            <img src="https://i.pinimg.com/1200x/e8/9a/2c/e89a2ca0b406931cdec116359d198771.jpg">
+            <h2>Mr Khizar Hayat</h2>
+            <p>CHIEF FINANCE & BUSSINESS DEVELOPMENT</p>
+
+        </div>
+        <div class="management-card">
+            <img src="https://i.pinimg.com/1200x/0f/36/4d/0f364d0a203737a1198211785312e50f.jpg">
+            <h2>Mr Rizwan Shafique </h2>
+            <p>CHIEF TECHNOLOGY OFFICER </p>
+
+        </div>
+        <div class="management-card">
+            <img src="https://i.pinimg.com/1200x/3e/e9/e7/3ee9e79fc79ac7d1a1b9bc88af6a8be2.jpg">
+            <h2>Mr Muhammad Asim Zia </h2>
+            <p>CHIEF HR OFFICER</p>
+
+        </div>
+    </div>
+
+
+    <div class="cards-container">
+        <div class="management-card">
+            <img src="https://i.pinimg.com/1200x/ed/4a/d1/ed4ad1e3eb9305c3e0c675571998df8f.jpg">
+            <h2>Mr Muhammad Qasim Bajwa</h2>
+            <p>CHIEF ADMIN & SECURITY</p>
+
+        </div>
+        <div class="management-card">
+            <img src="https://i.pinimg.com/1200x/77/35/2d/77352d9c33360f8e43bf0caea7d7dc77.jpg">
+            <h2>Mr Umer Amjad </h2>
+            <p>CHIEF QUALITY OFFICER </p>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to log out?')) {
+                alert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

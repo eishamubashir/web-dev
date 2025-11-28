@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Features</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2a1a3d 0%, #1a0d2e 100%);
+            color: white;
+            line-height: 1.6;
+        }
+
+     
+        .navbar {
+            background: black;
+            padding: 3px 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 4px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-left a:hover,
+        .nav-left a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-logo {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 90px;
+            width: auto;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-logo:hover img {
+            opacity: 0.8;
+        }
+
+        
+        .nav-right button {
+            background: purple;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .nav-right .admin-btn:hover {
+            background: red;
+        }
+
+        .nav-right .logout-btn:hover {
+            background: #c0392b;
+        }
+     .nav-right .login-btn:hover {
+            background: #c0392b;
+        }
+       
+       
+        #features {
+            padding: 100px 5%;
+            min-height: 100vh;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .features-header h2 {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+        }
+
+        .features-header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #ddd;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #74b9ff);
+            transform: scaleX(0);
+            transition: 0.4s;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: #ff6b6b;
+        }
+
+        .feature-card img {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 25px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff6b6b;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .feature-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+            color: #74b9ff;
+        }
+
+        .feature-card p {
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        footer {
+            background: black;
+            padding: 30px 5%;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .features-header h2 {
+                font-size: 2.3rem;
+            }
+
+            .nav-left {
+                gap: 8px;
+            }
+
+            .nav-left a {
+                font-size: 14px;
+                padding: 6px 8px;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--  NAVBAR -->
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="home.html" class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=900&auto=format&fit=crop&q=60"
+                    alt="Logo" style="height: 40px; width: auto;">
+            </a>
+            <a href="home.html">Home</a>
+            <a href="about.html">About us</a>
+            <a href="contact.html">Contact us</a>
+            <a href="complaint.html">complaint here</a>
+            <a href="Features.html" class="active">Features</a>
+            
+            
+        </div>
+       
+        <div class="nav-right">
+            <button class="admin-btn" onclick="window.location.href='admin.html'">Admin</button>
+            <button class="login-btn" onclick="window.location.href='index.html'">Login</button>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+            
+        </div>
+    </div>
+
+    <section id="features">
+        <div class="features-header">
+            <h2>Powerful Features That Matter</h2>
+            <p>Every detail is crafted to give you the best performance, security, and user experience possible.</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1645404058849-b83401ebdc30?w=900&auto=format&fit=crop&q=60"
+                    alt="Lightning Fast">
+                <h3>Lightning Fast</h3>
+                <p>Load times under 1 second. Optimized code, CDN delivery, and lazy loading ensure instant performance
+                    across all devices.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1761311985262-d0a342290b56?w=900&auto=format&fit=crop&q=60"
+                    alt="Fully Responsive">
+                <h3>100% Responsive</h3>
+                <p>Flawless experience on phones, tablets, laptops, and 4K screens. Built with mobile-first design
+                    principles.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=900&auto=format&fit=crop&q=60"
+                    alt="Security">
+                <h3>Security</h3>
+                <p>SSL encryption, firewall protection, regular audits, and real-time threat monitoring keep your data
+                    safe.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1756908992154-c8a89f5e517f?w=900&auto=format&fit=crop&q=60"
+                    alt="AI-Powered">
+                <h3>AI-Powered Intelligence</h3>
+                <p>Smart recommendations, auto-optimization, and predictive analytics powered by cutting-edge AI models.
+                </p>
+            </div>
+            <div class="feature-card">
+                <img src="https://media.istockphoto.com/id/2171151368/photo/hispanic-latin-american-couple-software-engineer-developer-use-computer-work-on-program.webp?a=1&b=1&s=612x612&w=0&k=20&c=AXtxoGmlYYgNPUwyOEajx48_PDrndgNSAIcY98TMhKc="
+                    alt="Cloud Native">
+                <h3>Cloud Native Architecture</h3>
+                <p>Scales to millions of users instantly. Auto-scaling, zero downtime, and global CDN for unstoppable
+                    uptime.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1573538447152-e6fe80357e8f?w=900&auto=format&fit=crop&q=60"
+                    alt="Pixel Perfect">
+                <h3>Pixel-Perfect Design</h3>
+                <p>Every pixel is handcrafted. Stunning animations, micro-interactions, and modern UI/UX principles.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Websites. Built for the Future.</p>
+    </footer>
+
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+            if (confirm("Are you sure you want to log out?")) {
+                alert("Logged out successfully!");
+                window.location.href = "index.html";
+            }
+        });
+    </script>
+</body>
+
+</html>

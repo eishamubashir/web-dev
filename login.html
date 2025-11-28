@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2a1a3d 0%, #1a0d2e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: white;
+            width: 400px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        h2 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        h2 a {
+            color: purple;
+            text-decoration: none;
+        }
+
+        h2 a:hover {
+            text-decoration: underline;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin: 15px 0 5px;
+            font-weight: bold;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 80%;
+            padding: 12px;
+            margin: 5px auto;
+            display: block;
+            border: 2px solid #333;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+        }
+
+        .button {
+            flex: 1;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #000;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: green;
+            color: white;
+        }
+
+        .button2 {
+            background-color: purple;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <h2>Don't have an account? <a href="index.html">Create one</a></h2>
+        <form id="loginForm">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" placeholder="123@gmail.com" required />
+            <label for="passw">Password:</label>
+            <input type="password" id="passw" placeholder="Enter password" required />
+            <div class="button-group">
+                <button type="button" class="button button1" onclick="window.location.href='index.html'">Back</button>
+                <button type="submit" class="button button2">Login</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("loginForm");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("passw").value;
+
+            if (!email || !password) {
+                alert("Please fill all fields");
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                
+                if (data.success && data.user) {
+                    
+                    localStorage.setItem("loggedInUser", JSON.stringify(data.user));
+
+                    
+                    window.location.href = 'home.html';
+                }
+                else {
+                    
+                    alert(data.message || "Invalid email or password");
+                }
+            } catch (err) {
+                console.error("Fetch error:", err);
+                alert("Network error! Please try again.");
+            }
+        });
+    </script>
+</body>
+
+</html>

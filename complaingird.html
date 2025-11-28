@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Complaints - Admin View</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2a1a3d 0%, #1a0d2e 100%);
+            color: white;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: black;
+            padding: 3px 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 4px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-left a:hover,
+        .nav-left a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-right button {
+            background: purple;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .nav-right button:hover {
+            background: #c0392b;
+        }
+
+        .nav-right .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .nav-right .login-btn:hover {
+            background: #c0392b;
+        }
+             .nav-logo {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+             }
+           
+             .nav-logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 5px;
+        }
+
+
+
+        .nav-logo:hover img {
+            opacity: 0.8;
+        }
+        #mainContent {
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+
+        .back {
+            display: inline-block;
+           background: purple;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+           box-shadow: 0 20px 40px rgba(255, 0, 255, 0.3);
+
+
+       
+           
+           
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            outline: none;
+        }
+
+        .search-container input:focus {
+            border-color: blue;
+        }
+
+
+        .search-container::after {
+           content: 'search';
+           position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+              font-size: 18px;
+           color: black;
+         }
+       
+         table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: purple;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: purple;
+            box-shadow: 0 20px 40px rgba(255, 0, 255, 0.3);
+
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0 5px;
+
+        }
+
+        .delete {
+            background: #bb1503;
+            color: white;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination a {
+            padding: 10px 15px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            min-width: 44px;
+            text-align: center;
+        }
+
+        .pagination a.active {
+            background: #4CAF50;
+        }
+
+        .pagination a:hover {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="home.html" class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=900&auto=format&fit=crop&q=60"
+                    alt="Logo">
+            </a>
+            <a href="home.html">Home</a>
+            <a href="about.html">About us</a>
+            <a href="contact.html">Contact us</a>
+            <a href="complaint.html" >complaint here</a>
+            <a href="Features.html">Features</a>
+        </div>
+        <div class="nav-right">
+            <button onclick="window.location.href='admin.html'">Admin</button>
+            <button onclick="window.location.href='index.html'">Login</button>
+            <button class="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <a href="admin.html" class="back">Back to Admin</a>
+        <h1>All Complaints Data</h1>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by name, email, phone..." onkeyup="applySearch()">
+        </div>
+
+        <table id="complaintTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Reason</th>
+                    <th>Details</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="complaintBody"></tbody>
+        </table>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <script>
+        const itemsPerPage = 4;
+        let currentPage = 1;
+        let allComplaints = [];
+        let filtered = [];
+
+        async function loadComplaints() {
+            try {
+                const res = await fetch('http://localhost:3000/api/complain');
+                const data = await res.json();
+
+                if (data.success && data.complaints) {
+                    allComplaints = data.complaints.map(c => ({
+                        id: c._id,
+                        name: (c.firstName + " " + (c.lastName || "")).trim(),
+                        email: c.email,
+                        phone: c.phone || "-",
+                        reason: c.reason || "Other",
+                        details: c.details || "",
+                        date: new Date(c.submittedAt).toLocaleString('en-GB')
+                    }));
+                    filtered = [...allComplaints];
+                    renderTable();
+                    renderPagination();
+                } else {
+                    showEmpty("No complaints found");
+                }
+            } catch (err) {
+                showEmpty("Server not connected!");
+            }
+        }
+
+        function showEmpty(msg) {
+            document.getElementById("complaintBody").innerHTML =
+                `<tr><td colspan="7" style="text-align:center; padding:60px; color:#aaa;">${msg}</td></tr>`;
+            document.getElementById("pagination").innerHTML = "";
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById("complaintBody");
+            tbody.innerHTML = "";
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageData = filtered.slice(start, end);
+
+            pageData.forEach(c => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+            <td><strong>${c.name || "N/A"}</strong></td>
+            <td>${c.email}</td>
+            <td>${c.phone}</td>
+            <td>${c.reason.replace("-", " ").toUpperCase()}</td>
+            <td style="max-width:300px; word-wrap:break-word;">${c.details.substring(0, 100)}${c.details.length > 100 ? "..." : ""}</td>
+            <td>${c.date}</td>
+            <td><button class="btn delete" onclick="deleteComplaint('${c.id}')">Delete</button></td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderPagination() {
+            const total = Math.ceil(filtered.length / itemsPerPage);
+            const div = document.getElementById("pagination");
+            div.innerHTML = "";
+            if (total <= 1) return;
+
+            if (currentPage > 1)
+                div.innerHTML += `<a href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
+            for (let i = 1; i <= total; i++) {
+                div.innerHTML += `<a href="#" ${i === currentPage ? 'class="active"' : ''} onclick="changePage(${i})">${i}</a>`;
+            }
+            if (currentPage < total)
+                div.innerHTML += `<a href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
+        }
+
+        function changePage(p) { currentPage = p; renderTable(); renderPagination(); }
+        function applySearch() {
+            const q = document.getElementById("searchInput").value.toLowerCase();
+            filtered = allComplaints.filter(c =>
+                c.name.toLowerCase().includes(q) ||
+                c.email.toLowerCase().includes(q) ||
+                c.phone.includes(q) ||
+                c.details.toLowerCase().includes(q)
+            );
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+        }
+
+        async function deleteComplaint(id) {
+            if (confirm("Delete this complaint?")) {
+                await fetch(`http://localhost:3000/api/complain/${id}`, { method: 'DELETE' });
+                loadComplaints();
+            }
+        }
+
+        document.querySelector('.logout-btn').onclick = () => {
+            if (confirm('Logout?')) {
+                alert('Logged out!');
+                location.href = 'index.html';
+            }
+        };
+
+        window.onload = loadComplaints;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Create Account</title>
+   <style>
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+      }
+
+      body {
+         background: linear-gradient(135deg, #2a1a3d 0%, #1a0d2e 100%);
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         margin-top: 50px;
+
+      }
+
+      .container {
+         background: rgba(255, 255, 255, 0.12);
+         background-color: white;
+         width: 500px;
+         margin-right: 200px;
+         padding: 10px;
+         max-width: 500px;
+         margin: 10px auto;
+         border-radius: 12px;
+         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+         text-align: center;
+
+      }
+
+      h1 {
+         font-size: 2rem;
+         margin-bottom: 10px;
+         margin-right: 35px;
+         margin-left: 40px;
+         color: #222;
+         margin-top: 20px;
+      }
+
+
+      h2 {
+         margin-bottom: 10px;
+         margin-right: 35px;
+         margin-left: 40px;
+         font-size: 1rem;
+         margin-bottom: 20px;
+         color: #555;
+
+      }
+
+      h2 a {
+         margin-bottom: 10px;
+         margin-right: 10px;
+         color: purple;
+         text-decoration: none;
+      }
+
+
+      h2 a:hover {
+         text-decoration: underline;
+      }
+
+      form {
+         background: rgba(255, 255, 255, 0.12);
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+
+      }
+
+      label {
+         margin-top: 20px;
+         margin-bottom: 5px;
+         font-weight: bold;
+         width: 80%;
+         text-align: left;
+      }
+
+
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+         width: 80%;
+         padding: 12px;
+         margin: 2px 0 15px;
+         border: 2px solid #333;
+         border-radius: 6px;
+         font-size: 1rem;
+         transition: border 0.3s;
+      }
+
+
+      input:focus {
+         outline: none;
+         border-color: #0066cc;
+      }
+
+      .button-group {
+         display: flex;
+         gap: 10px;
+         margin-top: 20px;
+         width: 80%;
+         justify-content: center;
+
+      }
+
+      .button {
+         flex: 1;
+         padding: 11px;
+         margin-bottom: 25px;
+         font-size: 1rem;
+         border: 2px solid #000;
+         border-radius: 6px;
+         cursor: pointer;
+         transition: opacity 0.3s;
+
+      }
+
+
+      .button2 {
+         background-color: purple;
+         color: white;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="container">
+      <h1>Create Account</h1>
+      <h2>Already have an account? <a href="login.html">Login</a></h2>
+      <form id="createAccountForm">
+         <label for="fname">First Name:</label>
+         <input type="text" id="fname" placeholder="Your name" required />
+         <label for="lname">Last Name:</label>
+         <input type="text" id="lname" placeholder="Last name" required />
+         <label for="email">E-mail:</label>
+         <input type="email" id="email" placeholder="123@gmail.com" required />
+         <label for="passw">Password:</label>
+         <input type="password" id="passw" placeholder="Enter password" required />
+         <div class="button-group">
+
+            <button type="submit" class="button button2"  >Create Account</button>
+         </div>
+      </form>
+   </div>
+
+   <script>
+      const form = document.getElementById("createAccountForm");
+      form.addEventListener("submit", async (e) => {
+         e.preventDefault();
+
+         const submitBtn = form.querySelector('button[type="submit"]');
+         const originalText = submitBtn.textContent;
+
+      
+         submitBtn.disabled = true;
+         submitBtn.textContent = "Creating Account...";
+
+         const user = {
+            firstName: document.getElementById("fname").value.trim(),
+            lastName: document.getElementById("lname").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            password: document.getElementById("passw").value
+         };
+
+         try {
+            const res = await fetch('/api/register', {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify(user)
+            });
+
+            const data = await res.json();
+
+            if (data.success || res.ok) {
+             
+               if (data.user) {
+                  localStorage.setItem("loggedInUser", JSON.stringify(data.user));
+               }
+
+               
+               form.reset();
+
+               
+               window.location.href = 'home.html';
+
+            } else {
+               
+               alert(data.message || "Registration failed. Try again.");
+               submitBtn.disabled = false;
+               submitBtn.textContent = originalText;
+               form.reset();
+            }
+         } catch (err) {
+            console.error(err);
+            alert("Server error! Please try again.");
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+         }
+      });
+   </script>
+</body>
+
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Contact Messages - View & Edit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2a1a3d 0%, #1a0d2e 100%);
+            color: white;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: black;
+            padding: 3px 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 4px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-left a:hover,
+        .nav-left a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-right button {
+            background: purple;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .nav-right .admin-btn:hover {
+            background: red;
+        }
+
+        .nav-right .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .nav-right .login-btn:hover {
+            background: #c0392b;
+        }
+
+                .nav-logo {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 5px;
+        }
+
+
+        .nav-logo:hover img {
+            opacity: 0.8;
+        }
+        #mainContent {
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .back {
+            display: inline-block;
+            background: purple;
+             box-shadow: 0 20px 40px rgba(255, 0, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            outline: none;
+        }
+
+        .search-container input:focus {
+            border-color: blue;
+        }
+
+        .search-container::after {
+            content: 'search';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: black;
+        }
+
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: purple;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            
+            background: purple;
+            box-shadow: 0 20px 40px rgba(255, 0, 255, 0.3);
+
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+
+        .delete {
+            background: #bb1503;
+            color: white;
+        }
+        .delete-btn :hover{
+             background: lightblue;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination a {
+            padding: 10px 15px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            min-width: 44px;
+            text-align: center;
+        }
+
+        .pagination a.active {
+            background: #4CAF50;
+        }
+
+        .pagination a:hover {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="nav-left">
+            <a class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=900&auto=format&fit=crop&q=60"
+                    alt="Logo" style="height: 40px; width: auto; vertical-align: middle;">
+            </a>
+            <a href="home.html">Home</a>
+            <a href="about.html">About us</a>
+            <a href="contact.html">Contact us</a>
+            <a href="complaint.html">complaint here</a>
+            <a href="Features.html">Features</a>
+            
+        </div>
+        <div class="nav-right">
+            <button class="admin-btn" onclick="window.location.href='user.html'">Admin</button>
+            <button class="login-btn" onclick="window.location.href='index.html'">Login</button>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+            
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <a href="admin.html" class="back">Back to Admin</a>
+        <h1>All Contact Messages</h1>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by name or email..." onkeyup="applySearch()">
+        </div>
+
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Date & Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userBody"></tbody>
+        </table>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <script>
+        const usersPerPage = 4;
+        let currentPage = 1;
+        let allMessages = [];
+        let filteredUsers = [];
+
+        async function loadMessages() {
+            try {
+                const res = await fetch('http://localhost:3000/api/contact');
+                if (!res.ok) throw new Error();
+                const data = await res.json();
+
+                if (data.success && Array.isArray(data.messages)) {
+                    allMessages = data.messages.map(msg => ({
+                        id: msg._id,
+                        name: msg.name?.trim() || "No Name",
+                        email: msg.email || "-",
+                        message: msg.message || "",
+                        date: new Date(msg.createdAt).toLocaleString('en-GB')
+                    }));
+                    filteredUsers = [...allMessages];
+                    currentPage = 1;
+                    renderTable();
+                    renderPagination();
+                } else {
+                    showMessage("No messages found");
+                }
+            } catch (err) {
+                showMessage("Server not connected!");
+            }
+        }
+
+        function showMessage(msg) {
+            document.getElementById("userBody").innerHTML =
+                `<tr><td colspan="5" style="text-align:center; padding:60px; color:#aaa; font-size:18px;">${msg}</td></tr>`;
+            document.getElementById("pagination").innerHTML = "";
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById("userBody");
+            tbody.innerHTML = "";
+            const start = (currentPage - 1) * usersPerPage;
+            const end = start + usersPerPage;
+            const pageUsers = filteredUsers.slice(start, end);
+
+            if (pageUsers.length === 0) {
+                showMessage("No messages ");
+                return;
+            }
+
+            pageUsers.forEach(msg => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+            <td><strong>${msg.name}</strong></td>
+            <td>${msg.email}</td>
+            <td style="max-width:400px; word-wrap:break-word;">${msg.message}</td>
+            <td>${msg.date}</td>
+            <td>
+                <button class="btn delete" onclick="deleteMsg('${msg.id}')">Delete</button>
+            </td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = "";
+
+            if (totalPages <= 1) return;
+
+            if (currentPage > 1) {
+                pagination.innerHTML += `<a href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
+            }
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.innerHTML += `<a href="#" ${i === currentPage ? 'class="active"' : ''} onclick="changePage(${i})">${i}</a>`;
+            }
+            if (currentPage < totalPages) {
+                pagination.innerHTML += `<a href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
+            }
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderTable();
+            renderPagination();
+        }
+
+        function applySearch() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            filteredUsers = allMessages.filter(msg =>
+                msg.name.toLowerCase().includes(query) ||
+                msg.email.toLowerCase().includes(query) ||
+                msg.message.toLowerCase().includes(query)
+            );
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+        }
+
+        async function deleteMsg(id) {
+            if (confirm("Are you sure ?")) {
+                try {
+                    await fetch(`http://localhost:3000/api/contact/${id}`, { method: 'DELETE' });
+                    loadMessages();
+                } catch (err) {
+                    alert("Delete failed");
+                }
+            }
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to logout?')) {
+                alert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+
+        window.onload = loadMessages;
+    </script>
+
+</body>
+
+</html>
