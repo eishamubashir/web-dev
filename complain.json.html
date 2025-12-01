@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Complaints - MongoDB Live JSON</title>
+    <style>
+        body {
+            background: #0d0d1e;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 30px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #bb86fc;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(187, 134, 252, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8be9fd;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+
+        #jsonOutput {
+            background: rgba(0, 0, 0, 0.9);
+            color: #00ffaa;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #bb86fc;
+            min-height: 70vh;
+            overflow: auto;
+            box-shadow: 0 0 20px rgba(187, 134, 252, 0.4);
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+
+        .refresh-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 14px 40px;
+            background: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #3700b3;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(98, 0, 234, 0.6);
+        }
+
+        .back-link {
+            
+            top: 20px;
+            left: 20px;
+            background: #6200ea;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .back-link:hover {
+            background: #3700b3;
+        }
+
+
+        .count {
+            text-align: center;
+            color: #f1fa8c;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="admin.html" class="back-link"> Back to Admin</a>
+
+    <div class="container">
+        <h1>All Complaints</h1>
+        
+        <div class="count">Total Complaints: <span id="count">0</span></div>
+
+        <pre id="jsonOutput">Loading complaints...</pre>
+
+        <button class="refresh-btn" onclick="loadComplaints()">Refresh </button>
+        
+    </div>
+
+    <script>
+        // Correct function name
+        async function loadComplaints() {
+            const output = document.getElementById('jsonOutput');
+            const countSpan = document.getElementById('count');
+
+            output.textContent = "complaints...";
+
+            try {
+                const response = await fetch('/api/complain');
+                const result = await response.json();
+
+                if (result.success && result.complaints && result.complaints.length > 0) {
+                    output.textContent = JSON.stringify(result.complaints, null, 4);
+                    countSpan.textContent = result.complaints.length;
+                } else {
+                    output.textContent = "No complaints submitted yet.";
+                    countSpan.textContent = "0";
+                }
+            } catch (error) {
+                output.textContent = "Error: " + error.message + "\n\nCheck if server is running on port 3000";
+                countSpan.textContent = "Error";
+                console.error(error);
+            }
+        }
+
+        // Load on start
+        loadComplaints();
+
+
+    </script>
+
+</body>
+
+</html>

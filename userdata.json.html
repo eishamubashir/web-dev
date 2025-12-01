@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users </title>
+    <style>
+       body {
+            background: #0d0d1e;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 30px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #bb86fc;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(187, 134, 252, 0.5);
+        }
+
+
+        .refresh-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 30px;
+            background: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #3700b3;
+            transform: scale(1.05);
+        }
+
+        .info {
+            text-align: center;
+            color: #03dac6;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        .back-link {
+           
+            top: 20px;
+            left: 20px;
+            background:#6200ea ;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            background: #3700b3;
+            transform: scale(1.05);
+        }
+
+        pre {
+            background: #000;
+            color: #0f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="admin.html" class="back-link"> Back to Admin</a>
+    <h1>All Registered Users </h1>
+    <pre id="json">Loading users</pre>
+
+    <button class="refresh-btn" onclick="loadMessages()">Refresh Now</button>
+    <script>
+        fetch('/api/users')
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && data.users.length > 0) {
+                    document.getElementById('json').textContent = JSON.stringify(data.users, null, 4);
+                } else if (data.users.length === 0) {
+                    document.getElementById('json').textContent = "no user registered!";
+                } else {
+                    document.getElementById('json').textContent = "Error: " + JSON.stringify(data);
+                }
+            })
+            .catch(err => {
+                document.getElementById('json').textContent = "error: " + err;
+            });
+    </script>
+</body>
+
+</html>

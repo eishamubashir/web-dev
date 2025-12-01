@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Contact Messages </title>
+    <style>
+        body {
+            background: #0d0d1e;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 30px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #bb86fc;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(187, 134, 252, 0.5);
+        }
+
+        #jsonOutput {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #bb86fc;
+            min-height: 70vh;
+            overflow-x: auto;
+            box-shadow: 0 0 20px rgba(187, 134, 252, 0.3);
+            font-size: 16px;
+        }
+
+        .refresh-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 30px;
+            background: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #3700b3;
+            transform: scale(1.05);
+        }
+
+        .info {
+            text-align: center;
+            color: #03dac6;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        .back-link {
+           
+            top: 20px;
+            left: 20px;
+            background:#6200ea ;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            background: #3700b3;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="admin.html" class="back-link"> Back to Admin</a>
+
+    <div class="container">
+        <h1>All Contact Messages </h1>
+        
+        <pre id="jsonOutput">Loading messages ...</pre>
+
+        <button class="refresh-btn" onclick="loadMessages()">Refresh Now</button>
+    </div>
+
+    <script>
+        async function loadMessages() {
+            const output = document.getElementById('jsonOutput');
+            try {
+                output.textContent = "Fetching latest messages...";
+
+                const res = await fetch('/api/contact');
+                const data = await res.json();
+
+                if (data.success && data.messages.length > 0) {
+                    // Beautiful JSON with indentation
+                    output.textContent = JSON.stringify(data.messages, null, 4);
+                } else {
+                    output.textContent = "no message.";
+                }
+            } catch (err) {
+                output.textContent = "Error: " + err.message;
+            }
+        }
+
+        // Page load hone par ek baar data load karo
+        window.onload = loadMessages;
+
+        // Har 15 seconds mein auto refresh (optional)
+        // setInterval(loadMessages, 15000);
+    </script>
+</body>
+
+</html>
