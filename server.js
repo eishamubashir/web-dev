@@ -89,7 +89,7 @@ app.get('/api/users', async (req, res) => {
 // YE ROUTE HAI JO SAARA DATA JSON MEIN DETA HAI
 app.get('/api/users', async (req, res) => {
     try {
-        const users = await User.find().select('-password'); // password hide
+        const users = await User.find().select('-password'); 
         res.json({ success: true, users });
     } catch (err) {
         res.status(500).json({ success: false, message: "Error fetching users" });
@@ -213,7 +213,7 @@ app.get('/complaint.html', (req, res) => res.sendFile(path.join(__dirname, 'comp
 app.get('/user.html', (req, res) => res.sendFile(path.join(__dirname, 'user.html')));
 app.get('/contactgird.html', (req, res) => {res.sendFile(path.join(__dirname, 'contactgird.html'));
 app.get('/complaingrid.html', (req, res) => res.sendFile(path.join(__dirname, 'complaingrid.html'))); 
-
+app.get('/userdata.html', (req, res) => res.sendFile(path.join(__dirname, 'userdata.html')));
 
 });
 // Start Server
