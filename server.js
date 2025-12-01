@@ -85,7 +85,7 @@ app.get('/api/users', async (req, res) => {
         res.status(500).json({ success: false, message: "Server error" });
     }
 });
-// json
+// json userdata..
 app.get('/api/users', async (req, res) => {
     try {
         const users = await User.find().select('-password'); 
@@ -221,7 +221,12 @@ app.get('/complaingrid.html', (req, res) => {
 app.get('/userdata.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'userdata.html'));
 });
-
+app.get('/contact.json.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'contact.json.html'));
+});
+app.get('/complain.json.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'complain.json.html'));
+});
 // Start Server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
