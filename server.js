@@ -86,6 +86,16 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
+// YE ROUTE HAI JO SAARA DATA JSON MEIN DETA HAI
+app.get('/api/users', async (req, res) => {
+    try {
+        const users = await User.find().select('-password'); // password hide
+        res.json({ success: true, users });
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Error fetching users" });
+    }
+});
+
 // Update User
 app.put('/api/users/:id', async (req, res) => {
     try {
