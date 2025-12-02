@@ -176,17 +176,14 @@
             margin: 0 5px;
         }
 
-        .edit {
-            background: blueviolet;
-            color: white;
-        }
+        
 
         .delete {
             background: #bb1503;
             color: white;
         }
          .update {
-            background: #15bb03;
+            background: green;
             color: white;
         }
 
@@ -399,9 +396,9 @@
             <td>${user.lastName}</td>
             <td>${user.email}</td>
             <td>
-                <button class="btn edit" onclick="openEdit('${user.id}', '${user.firstName}', '${user.lastName}', '${user.email}')">Edit</button>
+                <button class="btn update" onclick="openEdit('${user.id}', '${user.firstName}', '${user.lastName}', '${user.email}')">Update</button>
                 <button class="btn delete" onclick="deleteUser('${user.id}')">Delete</button>
-                 <button class="btn update" onclick="openEdit('${user.id}', '${user.firstName}', '${user.lastName}', '${user.email}')">update</button>
+                
             </td>
         `;
                 tbody.appendChild(tr);
