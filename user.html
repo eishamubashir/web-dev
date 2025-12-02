@@ -185,6 +185,10 @@
             background: #bb1503;
             color: white;
         }
+         .update {
+            background: #15bb03;
+            color: white;
+        }
 
         #overlay {
             display: none;
@@ -397,6 +401,7 @@
             <td>
                 <button class="btn edit" onclick="openEdit('${user.id}', '${user.firstName}', '${user.lastName}', '${user.email}')">Edit</button>
                 <button class="btn delete" onclick="deleteUser('${user.id}')">Delete</button>
+                 <button class="btn update" onclick="openEdit('${user.id}', '${user.firstName}', '${user.lastName}', '${user.email}')">update</button>
             </td>
         `;
                 tbody.appendChild(tr);
