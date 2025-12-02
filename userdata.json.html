@@ -87,23 +87,41 @@
     <h1>All Registered Users </h1>
     <pre id="json">Loading users</pre>
 
-    <button class="refresh-btn" onclick="loadMessages()">Refresh Now</button>
+    <button class="refresh-btn" onclick="loadUsers()">Refresh Now</button>
+    
+
     <script>
-        fetch('/api/users')
-            .then(res => res.json())
-            .then(data => {
-                if (data.success && data.users.length > 0) {
-                    document.getElementById('json').textContent = JSON.stringify(data.users, null, 4);
-                } else if (data.users.length === 0) {
-                    document.getElementById('json').textContent = "no user registered!";
-                } else {
-                    document.getElementById('json').textContent = "Error: " + JSON.stringify(data);
-                }
-            })
-            .catch(err => {
-                document.getElementById('json').textContent = "error: " + err;
-            });
+
+        function loadUsers() {
+            const output = document.getElementById('json');
+            output.textContent = "Loading users...";
+
+            fetch('/api/users')
+                .then(res => {
+                    if (!res.ok) throw new Error("Server responded with " + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    if (data.success && data.users && data.users.length > 0) {
+                        output.textContent = JSON.stringify(data.users, null, 4);
+                    } else if (data.users && data.users.length === 0) {
+                        output.textContent = "No user registered yet!";
+                    } else {
+                        output.textContent = "Server Response:\n" + JSON.stringify(data, null, 4);
+                    }
+                })
+                .catch(err => {
+                    output.textContent = "ERROR: " + err.message + "\nCheck console for details.";
+                    console.error("Fetch error:", err);
+                });
+        }
+
+
+        loadUsers();
+
     </script>
+    
+   
 </body>
 
 </html>
